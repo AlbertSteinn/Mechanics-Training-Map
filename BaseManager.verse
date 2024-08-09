@@ -657,12 +657,12 @@ pcbase_J := class<concrete>(pc_base):
         else {Print("Player in base at Index {Index}")}
 
 # Custom Siphon function. Heals player
-(Player:player).Siphon(Health:float)<transacts>:void =
+(Player:player).Siphon(Value:float)<transacts>:void =
     if(FortCharacter := Player.GetFortCharacter[]):
-        if(FortCharacter.GetHealth() <= Health):
-            FortCharacter.SetHealth(Health + FortCharacter.GetHealth())
+        if(FortCharacter.GetHealth() + Value <= FortCharacter.GetMaxHealth()):
+            FortCharacter.SetHealth(Value + FortCharacter.GetHealth())
         else:
-            ShieldToAdd := Health - (FortCharacter.GetMaxHealth() - FortCharacter.GetHealth())
+            ShieldToAdd := Value - (FortCharacter.GetMaxHealth() - FortCharacter.GetHealth())
             FortCharacter.SetHealth(FortCharacter.GetMaxHealth())
             FortCharacter.SetShield(ShieldToAdd + FortCharacter.GetShield())
 
